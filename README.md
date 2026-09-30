@@ -1,20 +1,24 @@
 # kandepet.com
 
-Hugo site with Remark42 comments, self-hosted on a Hetzner EX44 with Docker Compose.
+Hugo site with Remark42 comments, self-hosted on a Hetzner EX44 with Docker Compose,
+behind the server's existing nginx (which also serves labs.cx).
 Pushing to `main` on GitHub rebuilds and publishes the site within seconds.
 
 ```
-git push ──► GitHub ──webhook──► Caddy /_deploy ──► builder: git pull + hugo ──► /srv/site/current
-                                   │
-             kandepet.com ◄────────┤ serves static files
-    comments.kandepet.com ◄────────┘ proxies to remark42
+                    host nginx :443 (HTTPS via certbot)
+                        │  kandepet.com, www, comments
+                        ▼
+git push ──► GitHub ──► Caddy 127.0.0.1:8095 ──/_deploy──► builder: git pull + hugo ──► /srv/site/current
+                        │
+     kandepet.com ◄─────┤ static files from /srv/site/current
+comments.kandepet.com ◄─┘ proxies to remark42
 ```
 
 | Path | What |
 |---|---|
 | `site/` | Hugo source: `content/`, `layouts/` (site overrides), `static/`, `hugo.toml` |
 | `site/themes/kandepet` | Theme: a recreation of the old WordPress "Read" theme |
-| `deploy/` | `docker-compose.yml`, `Caddyfile`, builder image, env templates |
+| `deploy/` | `docker-compose.yml`, `Caddyfile`, builder image, env templates, `nginx/` site config |
 | `migration/` | One-time WordPress conversion script and the comment import file |
 
 ## Writing
@@ -78,38 +82,95 @@ self-hosted from `static/fonts/`. It's plain HTML templates and one stylesheet:
 
 ## Server setup (one time)
 
-1. **Push this repo to GitHub** (public). Set `REPO_URL` below to its clone URL.
-2. **Install Docker** on the EX44: https://docs.docker.com/engine/install/ (Compose plugin included).
-3. **Clone and configure:**
-   ```bash
-   git clone https://github.com/kandepet/kandepet.com.git /opt/kandepet
-   cd /opt/kandepet/deploy
-   cp .env.example .env                    # ACME_EMAIL, REPO_URL, WEBHOOK_SECRET
-   cp remark42.env.example remark42.env    # SECRET, ADMIN_PASSWD, login options
-   chmod 600 .env remark42.env
-   ```
-   Generate secrets with `openssl rand -hex 32`.
-4. **Firewall** (Hetzner Robot → Firewall): allow inbound TCP 22, 80, 443 and UDP 443.
-5. **DNS:** a day ahead, lower the TTL. Then point `kandepet.com`, `www.kandepet.com` and
-   `comments.kandepet.com` (A, and AAAA if the EX44 has IPv6; remove any old AAAA records)
-   at the EX44.
-6. **Start:**
-   ```bash
-   docker compose up -d --build
-   docker compose logs -f builder caddy    # first build + certificates
-   ```
-7. **Import the WordPress comments** (once, before anyone comments; the import replaces
-   all comments for the site):
-   ```bash
-   docker compose exec remark42 import -p wordpress -f /srv/import/comments-import.xml -s kandepet --url http://localhost:8080
-   ```
-8. **GitHub webhook** (repo → Settings → Webhooks → Add):
-   Payload URL `https://kandepet.com/_deploy`, content type `application/json`,
-   secret = `WEBHOOK_SECRET`, event "Just the push event".
-   The ping shows "Hook rules were not satisfied"; that's expected. Real pushes to `main` build.
-9. **Make yourself comment admin:** sign in on any post's comment box, click your name to
-   see your user ID, put it in `ADMIN_SHARED_ID` in `remark42.env`, then
-   `docker compose up -d remark42`.
+The EX44 already runs nginx on ports 80/443 (labs.cx, notes.labs.cx). nginx stays in charge:
+it gets the HTTPS certificates with certbot and forwards kandepet.com traffic to this stack,
+which listens only on `127.0.0.1:8095`. Nothing about the existing sites changes.
+
+Run these on the server, as your normal user with sudo.
+
+**1. Check what's installed.**
+```bash
+nginx -v; ls /etc/nginx/sites-enabled /etc/nginx/conf.d
+certbot --version
+docker --version && docker compose version
+```
+- If Docker is missing: https://docs.docker.com/engine/install/ubuntu/ (or `/debian/`), then
+  `sudo usermod -aG docker $USER` and log in again.
+- If certbot is missing: `sudo apt install certbot python3-certbot-nginx`.
+
+**2. Clone the repo and add the secrets.**
+```bash
+sudo mkdir -p /opt/kandepet && sudo chown $USER: /opt/kandepet
+git clone https://github.com/Kandepet/kandepet.com.git /opt/kandepet
+cd /opt/kandepet/deploy
+cp .env.example .env                    # set WEBHOOK_SECRET
+cp remark42.env.example remark42.env    # set SECRET and ADMIN_PASSWD
+chmod 600 .env remark42.env
+```
+Generate each secret with `openssl rand -hex 32`. Keep `WEBHOOK_SECRET` handy for step 9.
+
+**3. Start the stack.**
+```bash
+docker compose up -d --build
+docker compose logs -f builder          # wait for "live: ...", then Ctrl-C
+curl -s -H 'Host: kandepet.com' http://127.0.0.1:8095/ | grep -o '<title>.*</title>'
+```
+The last command should print `<title>Deepak Kandepet</title>`.
+
+**4. Import the WordPress comments** (once, before anyone comments; an import replaces all
+comments for the site):
+```bash
+docker compose exec remark42 import -p wordpress -f /srv/import/comments-import.xml -s kandepet --url http://localhost:8080
+```
+
+**5. Add the nginx site.**
+```bash
+sudo cp /opt/kandepet/deploy/nginx/kandepet.com.conf /etc/nginx/sites-available/kandepet.com
+sudo ln -s /etc/nginx/sites-available/kandepet.com /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+```
+If your nginx uses `conf.d/` instead of `sites-enabled/`, copy it to
+`/etc/nginx/conf.d/kandepet.com.conf` instead. It only answers for the kandepet.com names.
+
+**6. Preview before switching DNS (optional).** On your Mac, add this line to `/etc/hosts`
+(`sudo nano /etc/hosts`), using the EX44's IP:
+```
+<EX44-IP>  kandepet.com www.kandepet.com comments.kandepet.com
+```
+Open **http**://kandepet.com (no HTTPS yet, and comments won't load until step 8).
+Remove the line when you're done.
+
+**7. Switch DNS** (Hostinger → Domains → kandepet.com → DNS). A day ahead, lower the TTL
+of these records to 300. Then:
+- `@`: replace both A records with one A record → EX44 IPv4. Delete both AAAA records
+  (or replace them with one AAAA → EX44 IPv6, if the server has one and nginx listens on IPv6).
+- `www`: delete the CNAME to Hostinger's CDN; add an A record → EX44 IPv4 (and AAAA if used).
+- `comments`: add an A record → EX44 IPv4 (and AAAA if used).
+
+Wait until `dig +short kandepet.com www.kandepet.com comments.kandepet.com` shows only
+the EX44's address (usually a few minutes).
+
+**8. Turn on HTTPS.** certbot gets the certificate, adds it to the nginx site, redirects
+HTTP to HTTPS, and renews automatically:
+```bash
+sudo certbot --nginx -d kandepet.com -d www.kandepet.com -d comments.kandepet.com --redirect
+systemctl list-timers | grep certbot    # the renewal timer
+```
+Between the DNS switch and this step, https://kandepet.com shows a certificate error,
+so run it as soon as step 7 finishes.
+
+**9. GitHub webhook** (github.com/Kandepet/kandepet.com → Settings → Webhooks → Add webhook):
+Payload URL `https://kandepet.com/_deploy`, content type `application/json`,
+secret = `WEBHOOK_SECRET`, "Just the push event". The first delivery ("ping") shows
+"Hook rules were not satisfied"; that's expected. Push a commit to confirm a real build.
+
+**10. Make yourself comment admin.** Sign in on any post's comment box, click your name to
+see your user ID (e.g. `github_…` or `anonymous_…`), put it in `ADMIN_SHARED_ID` in
+`remark42.env`, then `docker compose up -d remark42`.
+
+**11. Retire WordPress** once you're happy: take a final backup in Hostinger, then cancel
+the hosting. It was compromised (spam links were injected into pages), so change the
+Hostinger account password too.
 
 ## Operations
 

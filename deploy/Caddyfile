@@ -1,5 +1,9 @@
+# Runs behind the host's nginx, which terminates HTTPS (certbot) and proxies
+# kandepet.com / www / comments to this Caddy over plain HTTP.
 {
-	email {$ACME_EMAIL}
+	servers {
+		trusted_proxies static private_ranges
+	}
 }
 
 # Addresses come from docker-compose.yml (production defaults; overridden by local.env).

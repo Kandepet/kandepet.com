@@ -4,16 +4,14 @@ services:
   caddy:
     image: caddy:2.11
     restart: unless-stopped
+    # Only reachable from the host: nginx proxies to it (see deploy/nginx/kandepet.com.conf).
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
+      - "${CADDY_BIND:-127.0.0.1:8095}:80"
     environment:
-      ACME_EMAIL: ${ACME_EMAIL:?set ACME_EMAIL in deploy/.env}
-      SITE_ADDRESS: ${SITE_ADDRESS:-kandepet.com}
+      SITE_ADDRESS: ${SITE_ADDRESS:-http://kandepet.com}
       SITE_URL: ${SITE_URL:-https://kandepet.com}
-      WWW_ADDRESS: ${WWW_ADDRESS:-www.kandepet.com}
-      COMMENTS_ADDRESS: ${COMMENTS_ADDRESS:-comments.kandepet.com}
+      WWW_ADDRESS: ${WWW_ADDRESS:-http://www.kandepet.com}
+      COMMENTS_ADDRESS: ${COMMENTS_ADDRESS:-http://comments.kandepet.com}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./caddy:/etc/caddy/conf.d:ro
