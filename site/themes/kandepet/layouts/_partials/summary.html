@@ -1,0 +1,11 @@
+<article class="entry">
+  <header class="entry-header">
+    <h2 class="entry-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    {{- partial "post-meta.html" (dict "page" . "count" true) }}
+  </header>
+  {{- with .Params.image }}
+  <a class="entry-thumb" href="{{ $.RelPermalink }}"><img src="{{ . | relURL }}" alt="" loading="lazy"></a>
+  {{- end }}
+  <div class="entry-summary">{{ .Summary }}</div>
+  <p class="more"><a class="more-link" href="{{ .RelPermalink }}">Continue reading <span class="meta-nav">&rarr;</span></a></p>
+</article>

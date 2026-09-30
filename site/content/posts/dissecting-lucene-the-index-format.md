@@ -3,6 +3,9 @@ title: "Dissecting Lucene - The Index format"
 date: "2011-10-02T03:54:10Z"
 lastmod: "2025-05-14T06:36:15Z"
 slug: "dissecting-lucene-the-index-format"
+description: "Lucene is high-performance, scalable, full-featured, open-source text search engine written in Java. Since I am a search engineer by profession, I wanted to learn more about Lucene and its internals. This article is about the index format…"
+summary: "Lucene is high-performance, scalable, full-featured, open-source text search engine written in Java. Since I am a search engineer by profession, I wanted to learn more about Lucene and its internals.\n\nThis article is about the index format of the 3.4 Lucene. Specifically the Lucene inverted index."
+image: "/wp-content/uploads/2011/10/Lucene-Header-Image-from-Deepak-Kandepet.png"
 categories:
   - "internals"
 ---

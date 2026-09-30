@@ -1,0 +1,37 @@
+{{ define "main" }}
+  {{- $isPost := in (slice "posts" "portfolio") .Section }}
+  <article class="entry entry-single">
+    <header class="entry-header">
+      <h1 class="entry-title">{{ .Title }}</h1>
+      {{- if $isPost }}{{ partial "post-meta.html" (dict "page" .) }}{{ end }}
+    </header>
+    {{- with .Params.image }}
+    <figure class="entry-thumb"><img src="{{ . | relURL }}" alt=""></figure>
+    {{- end }}
+    <div class="entry-content">
+      {{ .Content }}
+    </div>
+    {{- with .GetTerms "tags" }}
+    <p class="entry-tags"><span class="meta-label">tagged</span>
+      {{- range $i, $t := . }}{{ if $i }},{{ end }} <a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}</p>
+    {{- end }}
+  </article>
+
+  {{- if $isPost }}
+  {{- /* Older post on the left, newer on the right, like the old site. */}}
+  {{- $older := .PrevInSection }}{{ $newer := .NextInSection }}
+  {{- if or $older $newer }}
+  <nav class="nav-single" aria-label="Posts">
+    <div class="nav-previous">{{ with $older }}<span class="nav-label">Previous post</span><a href="{{ .RelPermalink }}" rel="prev"><span class="arrow">&larr;</span> {{ .Title }}</a>{{ end }}</div>
+    <div class="nav-next">{{ with $newer }}<span class="nav-label">Next post</span><a href="{{ .RelPermalink }}" rel="next">{{ .Title }} <span class="arrow">&rarr;</span></a>{{ end }}</div>
+  </nav>
+  {{- end }}
+  {{- end }}
+
+  {{- if .Param "comments" }}
+  <section id="comments" class="comments-area">
+    <h2 class="comments-title">Comments <span class="arrow">&rarr;</span> <span class="comments-for">{{ .Title }}</span></h2>
+    {{- partial "comments.html" . }}
+  </section>
+  {{- end }}
+{{ end }}

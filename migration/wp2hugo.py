@@ -203,7 +203,7 @@ def to_markdown(body):
 
 
 def yaml_str(s):
-    return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    return '"' + s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n") + '"'
 
 
 def front_matter(fields):
@@ -227,6 +227,14 @@ def plain_summary(s, limit=240):
     return s if len(s) <= limit else s[:limit].rsplit(" ", 1)[0] + "…"
 
 
+def featured_image(item, attachments):
+    url = attachments.get(postmeta(item, "_thumbnail_id"), "")
+    local = local_media_path(url) if url else None
+    if local:
+        media[url] = local
+    return local or ""
+
+
 def iso(gmt):
     return gmt.replace(" ", "T") + "Z" if gmt and not gmt.startswith("0000") else ""
 
@@ -243,6 +251,8 @@ def main():
     raw = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", raw)  # WordPress exported a stray form feed
     channel = ET.fromstring(raw).find("channel")
 
+    attachments = {text(i, "wp:post_id"): text(i, "wp:attachment_url") for i in channel.findall("item")
+                   if text(i, "wp:post_type") == "attachment"}
     redirects = []
     comment_items = []
     written = []
@@ -262,9 +272,10 @@ def main():
             "date": iso(text(item, "wp:post_date_gmt")),
             "lastmod": iso(text(item, "wp:post_modified_gmt")),
             "slug": slug,
-            # WordPress excerpts here just repeat the first paragraph (PaperMod would show it twice),
-            # so only an explicit SEO description is kept; Hugo builds summaries on its own.
-            "description": plain_summary(postmeta(item, "_yoast_wpseo_metadesc")),
+            "description": plain_summary(postmeta(item, "_yoast_wpseo_metadesc") or text(item, "excerpt:encoded")),
+            # The hand-written excerpt shown on the home page, followed by "Continue reading".
+            "summary": to_markdown(text(item, "excerpt:encoded")).strip() if text(item, "excerpt:encoded") else "",
+            "image": featured_image(item, attachments),
             "categories": [c for c in cats if c != "Uncategorized"],
             "tags": tags,
         }

@@ -1,0 +1,6 @@
+{{ define "main" }}
+  {{- $pag := .Paginate (where site.RegularPages "Section" "posts") }}
+  {{- range $pag.Pages }}{{ partial "summary.html" . }}{{ end }}
+  {{- partial "pagination.html" $pag }}
+  {{- partial "comment-count-script.html" . }}
+{{ end }}

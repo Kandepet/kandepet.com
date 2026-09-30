@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <header class="archive-header">
+    {{- with .Data.Singular }}<p class="archive-kind">{{ . | humanize }}</p>{{ end }}
+    <h1 class="archive-title">{{ .Title }}</h1>
+    {{- with .Content }}<div class="archive-description">{{ . }}</div>{{ end }}
+  </header>
+  {{- $pag := .Paginate .RegularPages }}
+  {{- range $pag.Pages }}{{ partial "summary.html" . }}{{ end }}
+  {{- partial "pagination.html" $pag }}
+  {{- partial "comment-count-script.html" . }}
+{{ end }}

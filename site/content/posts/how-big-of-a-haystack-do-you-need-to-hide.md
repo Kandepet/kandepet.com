@@ -3,6 +3,9 @@ title: "How big of a haystack do you need to hide?"
 date: "2011-08-05T01:13:16Z"
 lastmod: "2025-05-14T06:38:42Z"
 slug: "how-big-of-a-haystack-do-you-need-to-hide"
+description: "Every fact you learn about a person reduces the \"entropy\" of their identity. For e.g. If I know your gender, we can eliminate about 50% of the population: There were about 155.6 million females & 151.4 million males in the United States in…"
+summary: "Every fact you learn about a person reduces the \"entropy\" of their identity. For e.g.\n\n- If I know your gender, we can eliminate about 50% of the population: There were about 155.6 million females & 151.4 million males in the United States in 2009.\n- If I know your birthday we can eliminate a much larger percentage of the population: At age 85 and older, there were more than twice as many women as men. People under 20 years of age made up over a quarter of the U.S. population (27.3%), and people age 65 and over made up one-eighth (12.8%) in 2009.\n- We can narrow you down even more if we know your zip code\n\nEach of these facts independently narrow down the population, so much so that the combination of gender, ZIP code, birth date was [unique for about 63% of the U.S](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.91.4147&rep=rep1&type=pdf). population."
+image: "/wp-content/uploads/2011/08/Haystack-1024x910-1.jpg"
 categories:
   - "General"
 ---

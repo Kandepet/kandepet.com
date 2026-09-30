@@ -1,0 +1,13 @@
+{{- /* Usage: partial "post-meta.html" (dict "page" . "count" true) — count shows the comment count (lists only). */ -}}
+{{- $p := .page }}
+<div class="entry-meta">
+  {{- with $p.GetTerms "categories" }}
+  <span class="meta-label">posted in</span>
+  {{- range $i, $t := . }}{{ if $i }},{{ end }} <a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}
+  {{- end }}
+  <span class="meta-label">on</span> <a href="{{ $p.RelPermalink }}"><time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "January 2, 2006" }}</time></a>
+  {{- with site.Params.author }} <span class="meta-label">by</span> <span class="author">{{ . }}</span>{{ end }}
+  {{- if and .count ($p.Param "comments") }}
+  <a class="comment-count" href="{{ $p.RelPermalink }}#comments">{{ partial "comment-count.html" $p }}</a>
+  {{- end }}
+</div>

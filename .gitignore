@@ -11,3 +11,5 @@ deploy/remark42.env
 .venv/
 *.pyc
 .DS_Store
+/public/
+/.hugo_build.lock

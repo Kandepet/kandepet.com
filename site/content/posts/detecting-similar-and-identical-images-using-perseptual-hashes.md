@@ -3,6 +3,9 @@ title: "Detecting similar and identical images using perseptual hashes"
 date: "2012-07-31T00:48:48Z"
 lastmod: "2025-05-14T06:31:41Z"
 slug: "detecting-similar-and-identical-images-using-perseptual-hashes"
+description: "Couple of my hobbies are traveling and photography. I love to take pictures and experiment with photography. After several years, I have over 200K photos distributed across several disks and machines. I had to find a way to organize these…"
+summary: "Couple of my hobbies are traveling and photography. I love to take pictures and experiment with photography. After several years, I have over 200K photos distributed across several disks and machines. I had to find a way to organize these photos and create a workflow for future maintenance. In this post I want to address one of the issues I had to solve: ***finding duplicate images***."
+image: "/wp-content/uploads/2012/07/Spot-the-Difference.gif"
 categories:
   - "internals"
 ---

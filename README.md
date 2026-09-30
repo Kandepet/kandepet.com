@@ -13,7 +13,7 @@ git push ──► GitHub ──webhook──► Caddy /_deploy ──► builde
 | Path | What |
 |---|---|
 | `site/` | Hugo source: `content/`, `layouts/` (site overrides), `static/`, `hugo.toml` |
-| `site/themes/PaperMod` | Theme (git submodule, pinned to a commit) |
+| `site/themes/kandepet` | Theme: a recreation of the old WordPress "Read" theme |
 | `deploy/` | `docker-compose.yml`, `Caddyfile`, builder image, env templates |
 | `migration/` | One-time WordPress conversion script and the comment import file |
 
@@ -21,7 +21,6 @@ git push ──► GitHub ──webhook──► Caddy /_deploy ──► builde
 
 ```bash
 brew install hugo                      # use the same version as deploy/builder/Dockerfile
-git submodule update --init            # first time after cloning
 cd site
 hugo new content posts/my-new-post.md  # creates a draft
 hugo server -D                         # http://localhost:1313, live reload
@@ -57,13 +56,24 @@ The local stack differs from production only by the values in `local.env` and
 
 ## Theme
 
-- **Tweak:** copy a file from `site/themes/PaperMod/layouts/` to the same path under
-  `site/layouts/` and edit it; the site's copy wins. Custom CSS goes in
-  `site/assets/css/extended/*.css` (loaded automatically by PaperMod).
-- **Update PaperMod:** `cd site/themes/PaperMod && git fetch && git checkout <commit>`, test, commit.
-- **Replace:** add a theme under `site/themes/<name>` and change `theme` in `hugo.toml`.
-  Keep `site/layouts/_partials/comments.html` and `site/layouts/_shortcodes/gist.html`,
-  and make sure the new theme renders the `comments.html` partial on single pages.
+`site/themes/kandepet` recreates the look of the old WordPress site ("Read" theme):
+Josefin Slab for the site title, Coustard for the menu and headings, Lora for text,
+self-hosted from `static/fonts/`. It's plain HTML templates and one stylesheet:
+
+| File | What |
+|---|---|
+| `assets/css/main.css` | All styling; colors and fonts are variables at the top |
+| `layouts/baseof.html`, `_partials/header.html`, `_partials/footer.html` | Page frame, title and menu |
+| `layouts/home.html`, `list.html`, `_partials/summary.html` | Post lists (featured image, intro, "Continue reading") |
+| `layouts/single.html`, `_partials/post-meta.html` | Post page, "posted in … on … by …" line, previous/next links |
+| `layouts/archives.html`, `taxonomy.html`, `404.html` | Archives, category index, not found |
+
+- Menu entries are in `[menus]` in `site/hugo.toml`.
+- A post's featured image is `image:` in its front matter; the text on the home page is
+  `summary:` (or the first paragraph if there's none).
+- Comments are wired in from the site, not the theme: `site/layouts/_partials/comments.html`,
+  `comment-count.html` and `comment-count-script.html` override empty hooks in the theme.
+  Any other theme works too if it calls `partial "comments.html"` on post pages.
 - Don't change `[permalinks]` in `hugo.toml`: comments are attached to page URLs.
 
 ## Server setup (one time)

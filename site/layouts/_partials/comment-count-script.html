@@ -1,0 +1,6 @@
+{{- with site.Params.remark42 }}
+<script>
+  var remark_config = { host: {{ .host }}, site_id: {{ .siteID }}, components: ["counter"] };
+  {{ (resources.Get "js/remark42-loader.js").Content | safeJS }}
+</script>
+{{- end }}

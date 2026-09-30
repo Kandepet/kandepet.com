@@ -1,0 +1,4 @@
+{{- /* Comment count next to each post on list pages (filled in by Remark42's counter script). */ -}}
+{{- with site.Params.remark42 -}}
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg><span class="remark42__counter" data-url="{{ printf "%s%s" (strings.TrimSuffix "/" .siteURL) $.RelPermalink }}"></span>
+{{- end -}}

@@ -1,0 +1,263 @@
+/* kandepet theme: a recreation of the "Read" WordPress theme previously used on kandepet.com. */
+
+@font-face { font-family: "Josefin Slab"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/josefin-slab-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Coustard"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/coustard-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Lora"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/lora-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Lora"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/lora-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Lora"; font-style: italic; font-weight: 400; font-display: swap; src: url("../fonts/lora-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Lora"; font-style: italic; font-weight: 700; font-display: swap; src: url("../fonts/lora-latin-700-italic.woff2") format("woff2"); }
+
+:root {
+  --font-title: "Josefin Slab", Georgia, serif;
+  --font-heading: "Coustard", Georgia, serif;
+  --font-body: "Lora", Georgia, serif;
+  --font-mono: Monaco, Menlo, Consolas, "Courier New", monospace;
+
+  --text: #444;
+  --heading: #333;
+  --muted: #aaa;
+  --rule: #eee;
+  --dotted: #ccc;
+  --code-border: #ddd;
+  --link: #ce6607;
+  --link-hover: #a35208;
+  --accent: #cc3300;
+  --bg: #fff;
+  --selection: #ffffcf;
+
+  --width: 820px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--selection); color: var(--heading); text-shadow: none; }
+
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); }
+
+img { max-width: 100%; height: auto; }
+
+.site { max-width: var(--width); margin: 0 auto; padding: 0 20px; }
+
+/* ---------------------------------------------------------------- header */
+
+.site-header { text-align: center; padding: 60px 0 70px; }
+
+.site-title {
+  margin: 0 0 52px;
+  font: 400 96px/1.3 var(--font-title);
+}
+.site-title a { color: var(--heading); }
+.site-title a:hover { color: #000; }
+
+.main-navigation {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.main-navigation ul { list-style: none; margin: 0; padding: 0; }
+.main-navigation li { display: inline-block; margin: 0 16px; }
+.main-navigation a {
+  display: inline-block;
+  padding: 14px 0 13px;
+  color: var(--heading);
+  font: 400 14.4px/1.6 var(--font-heading);
+  border-bottom: 1px dotted transparent;
+}
+.main-navigation a:hover { color: var(--heading); border-bottom-color: var(--dotted); }
+.main-navigation a.current { color: var(--accent); }
+
+/* ---------------------------------------------------------------- entries */
+
+.entry { padding: 20px 0 40px; }
+
+.entry-header { text-align: center; }
+
+.entry-title {
+  margin: 0 0 8px;
+  color: var(--heading);
+  font: 400 30.4px/1.5 var(--font-heading);
+}
+.entry-title a { color: var(--heading); }
+.entry-title a:hover { color: #000; }
+.entry-single .entry-title { font-size: 35.2px; color: var(--text); }
+
+.entry-meta, .entry-tags {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 12.8px;
+  line-height: 1.9;
+  letter-spacing: 1px;
+}
+.entry-meta a, .entry-tags a {
+  color: var(--heading);
+  border-bottom: 1px dotted var(--dotted);
+}
+.entry-meta a:hover, .entry-tags a:hover { color: #000; }
+.entry-meta .comment-count { margin-left: 8px; border-bottom: 0; }
+.entry-meta .comment-count svg { width: 11px; height: 11px; vertical-align: -1px; margin-right: 3px; fill: none; stroke: currentColor; stroke-width: 2; }
+.entry-tags { text-align: center; margin-top: 32px; }
+
+.entry-thumb { display: block; margin: 8px 0 24px; text-align: center; }
+.entry-thumb img { display: inline-block; vertical-align: middle; }
+figure.entry-thumb { margin: 8px 0 24px; }
+
+.entry-summary p { margin: 0 0 16px; }
+
+.more { text-align: center; margin: 32px 0 0; }
+.more-link {
+  display: inline-block;
+  padding: 6.8px 28px 5.4px;
+  color: var(--text);
+  font-size: 13.6px;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--rule);
+}
+.more-link:hover { color: #000; border-bottom-color: var(--dotted); }
+
+/* ---------------------------------------------------------------- post body */
+
+.entry-content { font-size: 18px; line-height: 1.6; }
+.entry-content p { margin: 21.6px 0; }
+
+.entry-content h1, .entry-content h2, .entry-content h3,
+.entry-content h4, .entry-content h5, .entry-content h6 {
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-weight: 400;
+}
+.entry-content h1 { font-size: 35.2px; line-height: 1.5; margin: 28px 0 14px; }
+.entry-content h2 { font-size: 25.6px; line-height: 1.5; margin: 36px 0 20px; }
+.entry-content h3 { font-size: 19.2px; line-height: 1.5; margin: 19px 0 11.5px; }
+.entry-content h4, .entry-content h5, .entry-content h6 { font-size: 16px; margin: 16px 0 10px; }
+
+.entry-content ul, .entry-content ol { margin: 3px 0 16px; padding-left: 40px; }
+.entry-content ul { list-style: square; }
+.entry-content li { margin: 0 0 6px; }
+
+.entry-content img { display: block; margin: 18px auto; }
+
+.entry-content blockquote {
+  margin: 24px 0;
+  padding: 0 0 0 20px;
+  border-left: 3px solid var(--rule);
+  color: #666;
+  font-style: italic;
+}
+
+.entry-content hr, hr {
+  border: 0;
+  border-bottom: 1px dashed var(--dotted);
+  margin: 24px 0;
+}
+
+.entry-content table { border-collapse: collapse; width: 100%; margin: 24px 0; font-size: 15px; display: block; overflow-x: auto; }
+.entry-content th, .entry-content td { border: 1px solid var(--code-border); padding: 6px 10px; text-align: left; vertical-align: top; }
+.entry-content th { background: #f7f7f7; font-weight: 700; }
+
+/* Code: small Monaco in a thin light box, as before. */
+code, pre { font-family: var(--font-mono); font-size: 12px; line-height: 1.6; color: var(--heading); }
+:not(pre) > code {
+  margin: 0 4.8px;
+  padding: 1px 6px;
+  background: #fff;
+  border: 1px solid var(--code-border);
+  border-radius: 2px;
+  white-space: nowrap;
+}
+pre {
+  margin: 12px 0 24px;
+  padding: 8px 12px;
+  background: #fff !important;   /* override Chroma's inline background */
+  border: 1px solid var(--code-border);
+  border-radius: 2px;
+  overflow-x: auto;
+}
+.highlight { margin: 12px 0 24px; }
+.highlight pre { margin: 0; }
+
+/* ---------------------------------------------------------------- post navigation + comments */
+
+.nav-single {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 43px 0;
+  border-top: 1px solid var(--rule);
+  font-size: 14.4px;
+}
+.nav-single > div { flex: 1 1 50%; }
+.nav-next { text-align: right; }
+.nav-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.nav-single a { color: var(--text); }
+.nav-single a:hover { color: #000; }
+.nav-single .arrow { color: var(--muted); }
+
+.comments-area { padding: 32px 0; }
+.comments-title {
+  margin: 0 0 24px;
+  color: var(--text);
+  font: 400 25.6px/1.5 var(--font-heading);
+}
+.comments-title .arrow { color: var(--muted); font-size: 16px; margin: 0 8px; }
+.comments-title .comments-for { color: var(--muted); font-size: 14.4px; }
+
+/* ---------------------------------------------------------------- archive pages */
+
+.archive-header { text-align: center; padding: 20px 0 16px; }
+.archive-kind { margin: 0; color: var(--muted); font-size: 12.8px; letter-spacing: 1px; text-transform: uppercase; }
+.archive-title { margin: 0; color: var(--heading); font: 400 30.4px/1.5 var(--font-heading); }
+
+.archive-year h2 { color: var(--heading); font: 400 25.6px/1.5 var(--font-heading); margin: 32px 0 8px; }
+.archive-year ul, .term-list { list-style: none; margin: 0; padding: 0; }
+.archive-year li, .term-list li { padding: 6px 0; border-bottom: 1px dotted var(--rule); }
+.archive-year time { display: inline-block; width: 70px; color: var(--muted); font-size: 12.8px; letter-spacing: 1px; }
+.term-list { max-width: 400px; margin: 24px auto; }
+.term-list .count { color: var(--muted); font-size: 12.8px; }
+
+.pagination { display: flex; justify-content: space-between; padding: 24px 0 40px; font-size: 13.6px; letter-spacing: 2px; }
+.pagination a { color: var(--text); }
+.pagination .newer { margin-left: auto; }
+
+/* ---------------------------------------------------------------- footer */
+
+.site-footer {
+  margin-top: 40px;
+  padding: 24px 0 32px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 12.8px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.site-footer a { color: var(--muted); border-bottom: 1px dotted var(--dotted); }
+
+/* ---------------------------------------------------------------- small screens */
+
+@media (max-width: 700px) {
+  .site-header { padding: 32px 0 32px; }
+  .site-title { font-size: clamp(44px, 13vw, 96px); margin-bottom: 28px; }
+  .main-navigation li { margin: 0 10px; }
+  .entry-title { font-size: 25.6px; }
+  .entry-single .entry-title { font-size: 28px; }
+  .entry-content { font-size: 17px; }
+  .entry-content ul, .entry-content ol { padding-left: 24px; }
+  .nav-single { flex-direction: column; }
+  .nav-next { text-align: left; }
+}

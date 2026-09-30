@@ -1,8 +1,9 @@
 baseURL = "https://kandepet.com/"
 title = "Deepak Kandepet"
 locale = "en-US"
-theme = "PaperMod"
+theme = "kandepet"
 enableRobotsTXT = true
+capitalizeListTitles = false   # keep category names as written ("hacking", not "Hacking")
 
 [pagination]
   pagerSize = 10
@@ -20,26 +21,16 @@ enableRobotsTXT = true
   category = "categories"
   tag = "tags"
 
-[outputs]
-  home = ["HTML", "RSS", "JSON"]   # JSON powers the search page
-
 [markup]
   [markup.goldmark.renderer]
     unsafe = true                  # migrated posts contain some raw HTML (tables, etc.)
   [markup.highlight]
-    noClasses = false
+    style = "github"
     lineNos = false
 
 [params]
-  env = "production"
   description = "Notes on hardware, firmware and software internals."
-  author = "Deepak Kandepet"
-  defaultTheme = "auto"
-  ShowReadingTime = true
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = false
-  ShowCodeCopyButtons = true
-  ShowToc = false
+  author = "deepak"
   comments = true                  # renders layouts/_partials/comments.html (Remark42)
 
   [params.remark42]
@@ -47,40 +38,16 @@ enableRobotsTXT = true
     siteID = "kandepet"
     siteURL = "https://kandepet.com"   # comment threads are keyed by production URL
 
-  [params.homeInfoParams]
-    Title = "Deepak Kandepet"
-    Content = "Teardowns and deep dives into how things work, from Ethernet controllers and search indexes to keyboards, flashlights and 3D printers."
-
-  [[params.socialIcons]]
-    name = "github"
-    url = "https://github.com/kandepet"
-  [[params.socialIcons]]
-    name = "linkedin"
-    url = "https://www.linkedin.com/in/deepakkandepet"
-  [[params.socialIcons]]
-    name = "x"
-    url = "https://twitter.com/kandepet"
-  [[params.socialIcons]]
-    name = "rss"
-    url = "/index.xml"
-
-  [params.fuseOpts]
-    keys = ["title", "permalink", "summary", "content"]
-
 [menus]
   [[menus.main]]
-    name = "Archives"
-    pageRef = "/archives"
+    name = "Home"
+    pageRef = "/"
     weight = 10
   [[menus.main]]
-    name = "Portfolio"
+    name = "Projects"
     pageRef = "/portfolio"
     weight = 20
   [[menus.main]]
     name = "About"
     pageRef = "/about-me"
     weight = 30
-  [[menus.main]]
-    name = "Search"
-    pageRef = "/search"
-    weight = 40

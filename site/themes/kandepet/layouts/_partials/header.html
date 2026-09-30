@@ -1,0 +1,15 @@
+<header class="site-header">
+  {{- $title := printf `<a href="%s" rel="home">%s</a>` ("/" | relURL) site.Title }}
+  {{- if .IsHome }}
+  <h1 class="site-title">{{ $title | safeHTML }}</h1>
+  {{- else }}
+  <div class="site-title">{{ $title | safeHTML }}</div>
+  {{- end }}
+  <nav class="main-navigation" aria-label="Main">
+    <ul>
+      {{- range site.Menus.main }}
+      <li><a href="{{ .URL }}"{{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} class="current" aria-current="page"{{ end }}>{{ .Name }}</a></li>
+      {{- end }}
+    </ul>
+  </nav>
+</header>
