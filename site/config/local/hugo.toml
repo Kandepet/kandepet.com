@@ -1,0 +1,5 @@
+# Overrides for the local Docker stack (HUGO_ENV=local); merged over site/hugo.toml.
+baseURL = "http://localhost:8080/"
+
+[params.remark42]
+  host = "http://localhost:8081"

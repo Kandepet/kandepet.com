@@ -1,0 +1,26 @@
+# Run the full stack on your Mac:
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml --env-file local.env up --build
+# Site: http://localhost:8080   Comments: http://localhost:8081
+# The builder clones your *committed* local repo (no GitHub push needed).
+services:
+  caddy:
+    ports: !override
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
+
+  builder:
+    environment:
+      # The repo is mounted from the host, so git sees a different owner.
+      GIT_CONFIG_COUNT: "1"
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: "*"
+    volumes:
+      - ..:/src:ro
+
+  remark42:
+    env_file: !reset []
+    environment:
+      SECRET: local-only-secret
+      ADMIN_PASSWD: local-only-admin
+      AUTH_ANON: "true"

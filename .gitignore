@@ -1,0 +1,13 @@
+# Hugo build output
+site/public/
+site/resources/_gen/
+site/.hugo_build.lock
+
+# Server secrets
+deploy/.env
+deploy/remark42.env
+
+# Migration tooling
+.venv/
+*.pyc
+.DS_Store

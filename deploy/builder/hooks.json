@@ -1,0 +1,26 @@
+[
+  {
+    "id": "deploy",
+    "execute-command": "/app/build.sh",
+    "command-working-directory": "/srv",
+    "response-message": "build started\n",
+    "trigger-rule": {
+      "and": [
+        {
+          "match": {
+            "type": "payload-hmac-sha256",
+            "secret": "{{ getenv "WEBHOOK_SECRET" | js }}",
+            "parameter": { "source": "header", "name": "X-Hub-Signature-256" }
+          }
+        },
+        {
+          "match": {
+            "type": "value",
+            "value": "refs/heads/{{ getenv "GIT_BRANCH" | js }}",
+            "parameter": { "source": "payload", "name": "ref" }
+          }
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,5 @@
+{{- /* Usage: {{< gist ID >}} or {{< gist ID "file.c" >}} (Hugo no longer ships a gist shortcode) */ -}}
+{{- $id := .Get 0 -}}
+{{- $file := .Get 1 -}}
+<script src="https://gist.github.com/{{ $id }}.js{{ with $file }}?file={{ . }}{{ end }}"></script>
+<noscript><a href="https://gist.github.com/{{ $id }}">View gist {{ $id }} on GitHub</a></noscript>

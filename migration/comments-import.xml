@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:wp="http://wordpress.org/export/1.2/"><channel>
+<item><link>https://kandepet.com/detecting-similar-and-identical-images-using-perseptual-hashes/</link>
+<wp:comment><wp:comment_id>2</wp:comment_id><wp:comment_author><![CDATA[Sherwood Botsford]]></wp:comment_author><wp:comment_date_gmt>2021-08-15 16:53:52</wp:comment_date_gmt><wp:comment_content><![CDATA[I found it interesting that the severe crop still had a similarly if 0.29.   What would happen if you take 20 similar size crop images from this and compare them.  E.g. from this image you could get one image that is pure sun, and one that almost pure black.  Are these *still* going to have similar values?
+
+With all the furor over apple's CSAM checker, how different do people's snaps of their kids have to be to known child porn images.  If a porn collector collects pix of attractive but not naked kids, and these are in the database, will this trigger a raft of false positives.
+
+***
+
+How fast to the similarly drop with cropping.
+
+How about partial rotations.  I would expect that like moire that certain rotation angles would be problematic
+
+How about reflection, change in contrast level, color shifts, and combinations?
+
+Another trick to fool the image checker would be to mask the actual subject and add noise to the rest of the image.]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+</item>
+<item><link>https://kandepet.com/dissecting-the-ergodox-the-ergonomic-programmable-keyboard/</link>
+<wp:comment><wp:comment_id>115</wp:comment_id><wp:comment_author><![CDATA[Szabolcs]]></wp:comment_author><wp:comment_date_gmt>2018-09-04 09:32:23</wp:comment_date_gmt><wp:comment_content><![CDATA[&gt; Further, a 13 wire cable is not very portable.
+
+Why not use USB-C? (of course out of USB spec!), Just as a 24-wire compact connector/cable?
+
+Which controller would provide enough pins for a 14-col 6-rows matrix (20 pins)?
+
+Wouldn't the Teensy 2.0 work just fine, if you don't use lighting control?]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+<wp:comment><wp:comment_id>116</wp:comment_id><wp:comment_author><![CDATA[Jayesh Vora]]></wp:comment_author><wp:comment_date_gmt>2018-12-18 17:27:14</wp:comment_date_gmt><wp:comment_content><![CDATA[Hi Deepak,
+
+You have put here a very detailed explanation of Ergodox keyboard. Thank you very much for this efforts.
+
+I have couple of questions:
+1. Do you know why PD6 of Teensy is connected to ground?
+2. And why PB4 is connected to Vcc?
+
+I am also looking forward to part 2 of this blog.
+
+Thanks,
+Jayesh Vora]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+<wp:comment><wp:comment_id>117</wp:comment_id><wp:comment_author><![CDATA[Matt Mathis]]></wp:comment_author><wp:comment_date_gmt>2019-05-03 03:01:35</wp:comment_date_gmt><wp:comment_content><![CDATA[This is super helpful and really well written. I was struggling with how it all worked together until reading this.]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+</item>
+<item><link>https://kandepet.com/marlin-3d-printer-firmware-delta-inverse-kinematics/</link>
+<wp:comment><wp:comment_id>301</wp:comment_id><wp:comment_author><![CDATA[Mark Means]]></wp:comment_author><wp:comment_date_gmt>2021-04-07 00:25:03</wp:comment_date_gmt><wp:comment_content><![CDATA[The towers form an equilateral triangle. If you measure the distance from the center of each tower (d) extrusion to the next, you can calculate the DELTA_SMOOTH_ROD_OFFSET. This is the circumradius of the equilateral triangle which is d * SQRT(3) / 3.]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+</item>
+<item><link>https://kandepet.com/deconstructing-a-flashlight/</link>
+<wp:comment><wp:comment_id>307</wp:comment_id><wp:comment_author><![CDATA[Virisenox_]]></wp:comment_author><wp:comment_date_gmt>2018-01-24 19:17:11</wp:comment_date_gmt><wp:comment_content><![CDATA[You said "Toymaker" instead of "ToyKeeper" in that last section.]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+<wp:comment><wp:comment_id>308</wp:comment_id><wp:comment_author><![CDATA[Doug Edwards]]></wp:comment_author><wp:comment_date_gmt>2018-09-26 16:23:34</wp:comment_date_gmt><wp:comment_content><![CDATA[Hi there. This was the first web page I checked out wanting to learn about drivers for my new flashlight addiction. Being an old electronic specialist all this made perfect sense to me and I loved it. I even caught one wrong word about monsters . I will check the other links out. Tnx much for your knowledge and ability to teach it. Regards, Doug E.]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+<wp:comment><wp:comment_id>309</wp:comment_id><wp:comment_author><![CDATA[Tom Logan]]></wp:comment_author><wp:comment_date_gmt>2021-11-21 00:06:19</wp:comment_date_gmt><wp:comment_content><![CDATA[I realize this is an older article - but it is still very useful and helpful. One question  - Where is the 5.1v zener expecting a possible overvoltage from.  I'm very tight on space in my project and I'm using an 18650 battery - so I'm never expecting anything over 4.5.
+Thanks
+Tom]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+<wp:comment><wp:comment_id>310</wp:comment_id><wp:comment_author><![CDATA[hyoung-soo kim]]></wp:comment_author><wp:comment_date_gmt>2024-01-11 15:13:25</wp:comment_date_gmt><wp:comment_content><![CDATA[Thank you for your easy-to-understand explanation. I am a Korean, and I have been using a flashlight powered by amc7135 about 10 years ago. When I recently purchased a flashlight equipped with an MCU, the performance and function were good and the function was satisfactory. When I disassembled it after wondering about the internal structure, it was amazing that there were MOSFET and amc7135 together. I came across your explanation while looking for information. Thank you again]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+</item>
+<item><link>https://kandepet.com/3d-printing-slicing-3d-objects/</link>
+<wp:comment><wp:comment_id>381</wp:comment_id><wp:comment_author><![CDATA[kwi]]></wp:comment_author><wp:comment_date_gmt>2022-02-04 18:36:25</wp:comment_date_gmt><wp:comment_content><![CDATA[I do it this way.
+
+namespace KwiGCoder
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    public class MaterialCalculator
+    {
+        private readonly LengthUnits.Millimeter LAYERWIDTH = new(0.48);
+        private readonly LengthUnits.Millimeter FILAMENT_DIAMETER = new(1.75);
+
+        public LengthUnits.Millimeter RequierdRawFillament(Points3D.Point3D p1, Points3D.Point3D p2 , LengthUnits.Millimeter layerHeight)
+        {
+
+            LengthUnits.Millimeter radiusWidthEllipse = LAYERWIDTH / 2;
+            LengthUnits.Millimeter radiusHeightEllipse = layerHeight / 2;
+            AreaUnits.SquareMillimeter extrudeArea2DShape = Math.PI * radiusWidthEllipse * radiusHeightEllipse; // Ellipse
+
+            LengthUnits.Millimeter distance = p2.AbsoluteDistanceTo(p1);
+            VolumeUnits.QubeMillimeter rawFilamentVolumeNeeded = extrudeArea2DShape * distance;
+
+            AreaUnits.SquareMillimeter areaOfUnextrudedFilament = (FILAMENT_DIAMETER.Half ^ 2) * Math.PI;
+
+            var internalCorrectionFactor = 1.2;
+
+            LengthUnits.Millimeter extrusionAmount = rawFilamentVolumeNeeded / areaOfUnextrudedFilament;
+            extrusionAmount *= internalCorrectionFactor;
+
+
+            if (extrusionAmount &lt;= new LengthUnits.Millimeter(0))
+            {
+                // Warn if a negative Value is returned.
+                throw new Exception(&quot;Soaking up Filament is a planed feature ;-). But not implemented yet&quot;);
+            }
+
+            return extrusionAmount;
+
+        }
+    }
+}]]></wp:comment_content><wp:comment_approved>1</wp:comment_approved><wp:comment_parent>0</wp:comment_parent></wp:comment>
+</item>
+</channel></rss>

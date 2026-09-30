@@ -1,0 +1,54 @@
+name: kandepet
+
+services:
+  caddy:
+    image: caddy:2.11
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      ACME_EMAIL: ${ACME_EMAIL:?set ACME_EMAIL in deploy/.env}
+      SITE_ADDRESS: ${SITE_ADDRESS:-kandepet.com}
+      SITE_URL: ${SITE_URL:-https://kandepet.com}
+      WWW_ADDRESS: ${WWW_ADDRESS:-www.kandepet.com}
+      COMMENTS_ADDRESS: ${COMMENTS_ADDRESS:-comments.kandepet.com}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./caddy:/etc/caddy/conf.d:ro
+      - site:/srv/site:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+  builder:
+    build: ./builder
+    restart: unless-stopped
+    init: true
+    environment:
+      REPO_URL: ${REPO_URL:?set REPO_URL in deploy/.env}
+      GIT_BRANCH: ${GIT_BRANCH:-main}
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET:?set WEBHOOK_SECRET in deploy/.env}
+      HUGO_ENV: ${HUGO_ENV:-production}
+    volumes:
+      - repo:/srv/repo
+      - site:/srv/site
+
+  remark42:
+    image: umputun/remark42:v1.17.1
+    restart: unless-stopped
+    env_file: remark42.env
+    environment:
+      REMARK_URL: ${REMARK_URL:-https://comments.kandepet.com}
+      SITE: kandepet
+      ALLOWED_HOSTS: "${REMARK_ALLOWED_HOSTS:-'self',kandepet.com,www.kandepet.com}"
+    volumes:
+      - remark42_data:/srv/var
+      - ../migration:/srv/import:ro   # comments-import.xml for the one-time WordPress import
+
+volumes:
+  site:
+  repo:
+  caddy_data:
+  caddy_config:
+  remark42_data:
