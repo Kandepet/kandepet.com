@@ -82,6 +82,9 @@ self-hosted from `static/fonts/`. It's plain HTML templates and one stylesheet:
 
 ## Server setup (one time)
 
+Completed 2026-09-30: live at https://kandepet.com on the EX44, HTTPS via certbot,
+GitHub webhook active.
+
 The EX44 already runs nginx on ports 80/443 (labs.cx, notes.labs.cx). nginx stays in charge:
 it gets the HTTPS certificates with certbot and forwards kandepet.com traffic to this stack,
 which listens only on `127.0.0.1:8095`. Nothing about the existing sites changes.
